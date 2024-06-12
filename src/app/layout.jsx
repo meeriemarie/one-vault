@@ -1,3 +1,4 @@
+import NavBar from "@/app/components/NavBar";
 import {Josefin_Sans} from "next/font/google";
 import "./styles/globals.css";
 
@@ -12,9 +13,13 @@ export default function RootLayout({children}) {
     return (
         <html lang="en">
         <body className={josefinsans.className}>
-        <header>Header</header>
-        {children}
-        <footer className={"text-xs"}>Semester Project by Marie Rohler</footer>
+        <header className={"mb-12"}>
+            <NavBar/>
+        </header>
+            {children}
+        <footer
+            className={"text-xs"}>Semester Project by Marie Rohler
+        </footer>
         </body>
         </html>
     );
