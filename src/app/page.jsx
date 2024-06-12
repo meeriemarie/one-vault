@@ -8,17 +8,18 @@ export default function Home() {
     const [isSignupOpen, setIsSignupOpen] = useState(false);
     const handleOpenLogin = () => {
         setIsLoginOpen(true);
-    };
-    const handleCloseLogin = () => {
-        setIsLoginOpen(false);
-    };
-    const handleCloseSignup = () => {
         setIsSignupOpen(false);
     };
+
     const handleOpenSignup = () => {
         setIsSignupOpen(true);
+        setIsLoginOpen(false);
     };
 
+    const handleCloseModal = () => {
+        setIsSignupOpen(false);
+        setIsLoginOpen(false);
+    };
 
     return (
             <div className={"h-screen lg:p-8 p-2 font-normal bg-indigo-300"}>
@@ -41,8 +42,8 @@ export default function Home() {
                             className={"m-4 w-32 lg:w-48 lg:h-12 lg:text-lg rounded-md bg-gray-200 px-3 py-1.5 text-sm font-normal leading-6 text-indigo-600 shadow-sm hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"}>
                             Welcome Back
                         </button>
-                        {isLoginOpen && <LoginForm onClose={handleCloseLogin}/>}
-                        {isSignupOpen && <SignupForm onClose={handleCloseSignup}/>}
+                        {isLoginOpen && <LoginForm onClose={handleCloseModal} onSignupClick={handleOpenSignup}/>}
+                        {isSignupOpen && <SignupForm onClose={handleCloseModal} onLoginClick={handleOpenLogin}/>}
                     </div>
                 </article>
             </div>

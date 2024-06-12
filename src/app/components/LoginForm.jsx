@@ -1,6 +1,6 @@
 "use client";
 
-export default function LoginForm({onClose}) {
+export default function LoginForm({onClose, onSignupClick}) {
     return (
             <div className={"fixed flex items-center justify-center top-0 left-0 w-full h-full z-50 bg-black/50"}>
                 <div
@@ -27,8 +27,8 @@ export default function LoginForm({onClose}) {
                         Log In
                     </button>
                     <p className={"mt-10 text-center text-sm text-gray-500 m-6"}>Don`t have an account?
-                        <a className={"leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"}> Sign
-                            Up</a>
+                        <a onClick={onSignupClick}
+                            className={"leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"}> Sign Up</a>
                     </p>
                 </div>
             </div>
