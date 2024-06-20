@@ -2,16 +2,16 @@
 
 export default function LoginForm({onClose, onSignupClick}) {
     return (
-            <div className={"fixed flex items-center justify-center top-0 left-0 w-full h-full z-50 bg-black/50"}>
-                <div
+            <main className={"fixed flex items-center justify-center top-0 left-0 w-full h-full z-50 bg-black/50"}>
+                <dialog
                     className="w-5/6 lg:w-1/4 md:w-1/2 flex justify-center items-center bg-slate-200 flex-col rounded-md font-normal">
-                    <div className="relative pt-4 pl-4 ml-0 mr-auto cursor-pointer text-gray-900 hover:text-gray-500 font-bold">
+                    <p className="relative pt-4 pl-4 ml-0 mr-auto cursor-pointer text-gray-900 hover:text-gray-500 font-bold">
                         <button onClick={onClose}>X</button>
-                    </div>
-                    <div className={"flex justify-center"}>
+                    </p>
+                    <p className={"flex justify-center"}>
                         <h2 className={"mt-2 text-2xl font-bold leading-9 tracking-tight text-gray-900"}>Welcome
                             Back!</h2>
-                    </div>
+                    </p>
                     <div className={"p-4 mt-8 sm:mx-auto sm:w-full sm:max-w-sm"}>
                         <form className={"space-y-6"} method={"POST"}>
                             <input type="text" placeholder="E-Mail" value={""} readOnly={true}
@@ -30,7 +30,7 @@ export default function LoginForm({onClose, onSignupClick}) {
                         <a onClick={onSignupClick}
                             className={"leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"}> Sign Up</a>
                     </p>
-                </div>
-            </div>
+                </dialog>
+            </main>
     );
 }
