@@ -1,6 +1,25 @@
 'use client';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { signupUser } from './actions';
+import { MsgContext } from '../page';
+
+const handleSignup = async (
+  formData,
+  setErrorMessage,
+  setShowError,
+  setMsg,
+  onLoginClick
+) => {
+  const { success, msg } = await signupUser(formData);
+  if (!success) {
+    setErrorMessage(msg);
+    setShowError(true);
+  } else {
+    console.log('Signup successful');
+    setMsg(msg);
+    onLoginClick();
+  }
+};
 
 export default function SignupForm({ onClose, onLoginClick }) {
   const [formData, setFormData] = useState({
@@ -9,6 +28,9 @@ export default function SignupForm({ onClose, onLoginClick }) {
     email: '',
     password: '',
   });
+  const { msg, setMsg } = useContext(MsgContext);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   return (
     <main
@@ -29,6 +51,46 @@ export default function SignupForm({ onClose, onLoginClick }) {
             Welcome Aboard!
           </h2>
         </div>
+        {showError && (
+          <div
+            role='alert'
+            className={
+              'relative flex sm:w-5/6 px-4 py-4 text-base text-white bg-red-500 rounded-lg font-regular'
+            }
+            data-dismissible='alert'
+          >
+            <div className={'mr-12'}>{errorMessage}</div>
+            <button
+              data-dismissible-target='alert'
+              className={
+                '!absolute  top-3 right-3 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+              }
+              type='button'
+              onClick={() => setShowError(false)}
+            >
+              <span
+                className={
+                  'absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'
+                }
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                  strokeWidth='2'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6 18L18 6M6 6l12 12'
+                  ></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+        )}
         <div className={'p-4 mt-8 sm:mx-auto sm:w-full sm:max-w-sm'}>
           <form className={'space-y-6'}>
             <input
@@ -81,7 +143,15 @@ export default function SignupForm({ onClose, onLoginClick }) {
             ></input>
             <div className={'flex justify-center items-center'}>
               <button
-                formAction={() => signupUser(formData)}
+                formAction={() =>
+                  handleSignup(
+                    formData,
+                    setErrorMessage,
+                    setShowError,
+                    setMsg,
+                    onLoginClick
+                  )
+                }
                 className={
                   'flex justify-center w-1/2 rounded-md bg-indigo-600 px-3 py-1.5 text-sm leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
                 }

@@ -38,8 +38,8 @@ export async function loginUser(uName, pw) {
 
 export async function signupUser(formData) {
   try {
-    pw = await hashPassword(pw);
-
+    const pw = await hashPassword(formData.password);
+    formData.password = pw;
     // TODO Input validation
 
     const supaBaseClient = createClient();
@@ -50,13 +50,18 @@ export async function signupUser(formData) {
 
     if (error) {
       console.error('Signup error:', error);
-      redirect('/error');
+      let msg = error.message;
+      if (error.code === '23505') {
+        msg = 'Email already in use';
+      }
+      return { success: false, msg: msg };
     }
 
-    revalidatePath('/', 'layout');
-    onLoginClick();
+    // revalidatePath('/', 'layout');
+    return { success: true, msg: `Welcome ${data[0].name}! Please sign in!` };
   } catch (error) {
     console.error('Unexpected error:', error);
+    return { success: false, msg: 'Error while creating account' };
   }
 }
 

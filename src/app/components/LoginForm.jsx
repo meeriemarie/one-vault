@@ -1,11 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { loginUser } from './actions';
+import { MsgContext } from '../page';
 
 export default function LoginForm({ onClose, onSignupClick }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const { msg, setMsg } = useContext(MsgContext);
+
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
   return (
     <main
       className={
@@ -25,6 +35,86 @@ export default function LoginForm({ onClose, onSignupClick }) {
             Welcome Back!
           </h2>
         </div>
+        {msg && (
+          <div
+            role='alert'
+            className={
+              'relative flex sm:w-5/6 px-4 py-4 text-base text-white bg-green-500 rounded-lg font-regular'
+            }
+            data-dismissible='alert'
+          >
+            <div className={'mr-12'}>{msg}</div>
+            <button
+              data-dismissible-target='alert'
+              className={
+                '!absolute  top-3 right-3 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+              }
+              type='button'
+              onClick={() => setShowSuccess(false)}
+            >
+              <span
+                className={
+                  'absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'
+                }
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                  strokeWidth='2'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6 18L18 6M6 6l12 12'
+                  ></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+        )}
+        {showError && (
+          <div
+            role='alert'
+            className={
+              'relative flex sm:w-5/6 px-4 py-4 text-base text-white bg-red-500 rounded-lg font-regular'
+            }
+            data-dismissible='alert'
+          >
+            <div className={'mr-12'}>{errorMessage}</div>
+            <button
+              data-dismissible-target='alert'
+              className={
+                '!absolute  top-3 right-3 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+              }
+              type='button'
+              onClick={() => setShowError(false)}
+            >
+              <span
+                className={
+                  'absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'
+                }
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                  strokeWidth='2'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6 18L18 6M6 6l12 12'
+                  ></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+        )}
         <div className={'p-4 mt-8 sm:mx-auto sm:w-full sm:max-w-sm'}>
           <form className={'space-y-6'}>
             <input
