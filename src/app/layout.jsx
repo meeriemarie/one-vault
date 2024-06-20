@@ -1,26 +1,24 @@
-import NavBar from "@/app/components/NavBar";
-import {Josefin_Sans} from "next/font/google";
-import "./styles/globals.css";
+import NavBar from '@/app/components/NavBar';
+import { Josefin_Sans } from 'next/font/google';
+import './styles/globals.css';
 
-const josefinsans = Josefin_Sans({subsets: ["latin"]});
+const josefinsans = Josefin_Sans({ subsets: ['latin'] });
 
 export const metadata = {
-    title: "OneVault",
-    description: "Securely store your credentials.",
+  title: 'OneVault',
+  description: 'Securely store your credentials.',
 };
 
-export default function RootLayout({children}) {
-    return (
-        <html lang="en">
-        <body className={josefinsans.className}>
-        <header className={"mb-12"}>
-            <NavBar/>
+export default function RootLayout({ children }) {
+  return (
+    <html lang='en'>
+      <body className={josefinsans.className}>
+        <header className={'mb-12'}>
+          <NavBar />
         </header>
-            {children}
-        <footer
-            className={"text-xs"}>Semester Project by Marie Rohler
-        </footer>
-        </body>
-        </html>
-    );
+        {children}
+        <footer className={'text-xs'}>Semester Project by Marie Rohler</footer>
+      </body>
+    </html>
+  );
 }
