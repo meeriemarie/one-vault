@@ -2,6 +2,7 @@
 import LoginForm from '@/app/components/LoginForm';
 import SignupForm from '@/app/components/SignupForm';
 import { createContext, useMemo, useState } from 'react';
+import Alerts from './components/Alerts';
 
 export const SuccessContext = createContext([]);
 export const ErrorContext = createContext([]);
@@ -33,6 +34,7 @@ export default function Home() {
       <ErrorContext.Provider value={[]}>
         <MsgContext.Provider value={{ msg: '', setMsg: () => {} }}>
           <div className={'h-screen lg:p-8 p-2 font-normal bg-indigo-300'}>
+            <Alerts />
             <article className={'lg:m-6 m-4'}>
               <p
                 className={

@@ -13,6 +13,8 @@ export async function loginUser(uName, pw) {
     .select('password, name')
     .eq('email', uName);
 
+  console.log(data[0].password);
+  console.log(error);
   if (error) {
     console.error('Login error:', error);
     redirect('/error');
@@ -30,6 +32,7 @@ export async function loginUser(uName, pw) {
     });
     console.log('logged in User: ', data[0].name);
     revalidatePath('/', 'layout');
+    return data[0].name;
     // onLoginClick();
   } else {
     // Credentials have not been found
