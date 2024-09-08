@@ -43,7 +43,7 @@ export default function NavBar() {
                         (<div className={"absolute mt-3 bg-slate-800"}>
                                 <ul className={"table text-left border-collapse"}>
                                     <li className={"hover:bg-indigo-300 hover:text-gray-900 p-2 w-32"}>
-                                        <a href="/"
+                                        <a href="./account"
                                            className={"table-row"}>
                                             <IoMdSettings size={24} className={"inline-block"}/> Settings
                                         </a>
