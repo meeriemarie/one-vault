@@ -50,6 +50,7 @@ export async function loginUser(uName, pw) {
   }
 }
 
+/*
 export async function signupUser(formData) {
   try {
     const pw = await hashPassword(formData.password);
@@ -82,4 +83,44 @@ export async function signupUser(formData) {
 async function hashPassword(password) {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
+}
+ */
+
+export default async function handler(req, res) {
+  if (req.method === 'POST') {
+    const { name, surname, email, password } = req.body;
+
+    if (!name || !surname || !email || !password) {
+      return res.status(400).json({ success: false, msg: 'Please fill in all fields' });
+    }
+
+    try {
+      let supaBaseClient = createClient();
+      // Check if user already exists
+      const { data: existingUser, error: userError } = await supaBaseClient
+          .from('users')
+          .select('id')
+          .eq('email', email)
+          .single();
+
+      if (existingUser) {
+        return res.status(400).json({ success: false, msg: 'User already exists' });
+      }
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const { data, error } = await supaBaseClient
+          .from('users')
+          .insert([{ name, surname, email, password: hashedPassword }]);
+
+      if (error) {
+           return res.status(400).json({ success: false, msg: 'Error while creating account' });
+      }
+
+        return res.status(200).json({ success: true, msg: `Welcome ${data[0].name}! Please sign in!` });
+    } catch (error) {
+      return res.status(500).json({ success: false, msg: 'Server error' });
+    }
+  } else {
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
 }

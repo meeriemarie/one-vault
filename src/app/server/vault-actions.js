@@ -1,4 +1,5 @@
 'use server';
+import {createClient} from '../utils/server.js';
 
 export async function createNewCredentials(title, password, username, site) {
   const superBaseClient = createClient();
