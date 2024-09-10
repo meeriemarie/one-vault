@@ -13,6 +13,7 @@ export default function Vault() {
         setIsModalOpen(false);
     };
     return (
+        /* Simple sub page with a button to open a modal to add new credentials */
         <div className={"h-screen lg:p-8 p-2 font-normal bg-gray-200"}>
             <h2 className={"p-8 text-xl md:text-2xl lg:text-4xl text-center"}> Personal Vault </h2>
             <button

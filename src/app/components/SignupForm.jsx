@@ -4,12 +4,15 @@ import { signupUser } from '../server/actions';
 import { MsgContext } from '../page';
 
 const handleSignup = async (
+    // Function to handle signup based on form data
+    // useState to store name, surname, email and password
   formData,
   setErrorMessage,
   setShowError,
   setMsg,
   onLoginClick
 ) => {
+  // Call signupUser function from actions.js
   const { success, msg } = await signupUser(formData);
   if (!success) {
     setErrorMessage(msg);
@@ -28,6 +31,7 @@ export default function SignupForm({ onClose, onLoginClick }) {
     email: '',
     password: '',
   });
+  //Error handling
   const { msg, setMsg } = useContext(MsgContext);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -51,6 +55,7 @@ export default function SignupForm({ onClose, onLoginClick }) {
             Welcome Aboard!
           </h2>
         </div>
+        {/* Show error message if signup fails */}
         {showError && (
           <div
             role='alert'
@@ -93,6 +98,7 @@ export default function SignupForm({ onClose, onLoginClick }) {
         )}
         <div className={'p-4 mt-8 sm:mx-auto sm:w-full sm:max-w-sm'}>
           <form className={'space-y-6'}>
+            {/* Form to get user details for signup */}
             <input
               type='text'
               required={true}
@@ -142,6 +148,7 @@ export default function SignupForm({ onClose, onLoginClick }) {
               }
             ></input>
             <div className={'flex justify-center items-center'}>
+                {/* Signup button with formAction to call handleSignup function */}
               <button
                 formAction={() =>
                   handleSignup(
@@ -163,6 +170,7 @@ export default function SignupForm({ onClose, onLoginClick }) {
         </div>
         <p className={'mt-10 text-center text-sm text-gray-500 m-6'}>
           Already have an account?
+          {/* Redirect to login page */}
           <a
             onClick={onLoginClick}
             className={

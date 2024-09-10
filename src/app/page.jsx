@@ -34,6 +34,8 @@ export default function Home() {
   };
 
   return (
+      // Simple landing page with two buttons to open login and signup modals
+      // Alert component to display messages
     <SuccessContext.Provider value={[]}>
       <ErrorContext.Provider value={[]}>
         <MsgContext.Provider
