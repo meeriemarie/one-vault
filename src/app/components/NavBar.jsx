@@ -3,14 +3,21 @@ import {CgProfile} from "react-icons/cg";
 import {IoMdSettings} from "react-icons/io";
 import {TbLogin2, TbLogout} from "react-icons/tb";
 import {PiVaultBold} from "react-icons/pi";
-import {RxHamburgerMenu} from "react-icons/rx";
+import LoginForm from "@/app/components/LoginForm";
 import {useState} from "react";
 
 export default function NavBar() {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
 
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
+    };
+    const handleOpenLogin = () => {
+        setIsLoginOpen(true);
+    };
+    const handleCloseModal = () => {
+        setIsLoginOpen(false);
     };
 
     return (
@@ -36,7 +43,7 @@ export default function NavBar() {
                         (<div className={"absolute mt-3 bg-slate-800"}>
                                 <ul className={"table text-left border-collapse"}>
                                     <li className={"hover:bg-indigo-300 hover:text-gray-900 p-2 w-32"}>
-                                        <a href="/"
+                                        <a href="./account"
                                            className={"table-row"}>
                                             <IoMdSettings size={24} className={"inline-block"}/> Settings
                                         </a>
@@ -56,16 +63,19 @@ export default function NavBar() {
                                 </ul>
                             </div>
                         )}
-                    <div className={"hidden mt-3 bg-slate-800"}>
-                        <ul className={"table border-collapse"}>
-                            <li className={"hover:bg-indigo-300 hover:text-gray-900 p-2 w-32"}>
-                                <a href="/"
-                                   className={"lg:table-row lg:text-left text-center"}>
-                                    <TbLogin2 size={24} className={"inline"}/> Login
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    {isDropdownVisible &&
+                        (<div className={"hidden mt-3 bg-slate-800"}>
+                                <ul className={"table border-collapse"}>
+                                    <li className={"hover:bg-indigo-300 hover:text-gray-900 p-2 w-32"}>
+                                        <a onClick={handleOpenLogin}
+                                           className={"lg:table-row lg:text-left text-center"}>
+                                            <TbLogin2 size={24} className={"inline"}/> Login
+                                        </a>
+                                    </li>
+                                </ul>
+                                {isLoginOpen && <LoginForm onClose={handleCloseModal}/>}
+                            </div>
+                        )}
                 </button>
             </section>
         </nav>
