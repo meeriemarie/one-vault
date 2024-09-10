@@ -1,12 +1,13 @@
 'use client';
 
-const { loginUser } = require('../components/actions');
+const { loginUser } = require('../server/actions');
 
 export async function login(username, pw) {
   const res = await loginUser(username, pw);
   if (res.success) {
     const userObject = {
       username: res.username,
+      userId: res.userId,
       loggedIn: true,
     };
     localStorage.setItem('user', JSON.stringify(userObject));

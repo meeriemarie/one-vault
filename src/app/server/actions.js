@@ -10,10 +10,10 @@ export async function loginUser(uName, pw) {
   const superBaseClient = createClient();
   const { data, error } = await superBaseClient
     .from('users')
-    .select('password, name')
+    .select('id, password, name')
     .eq('email', uName);
 
-  console.log(data[0].password);
+  console.log(data);
   console.log(error);
   if (error) {
     console.error('Login error:', error);
@@ -36,10 +36,12 @@ export async function loginUser(uName, pw) {
         };
       }
     });
-    console.log('logged in User: ', data[0].name);
+    console.log('logged in User: ', data[0]);
     revalidatePath('/', 'layout');
+
     return {
       username: data[0].name,
+      userId: data[0].id,
       success: true,
     };
     // onLoginClick();

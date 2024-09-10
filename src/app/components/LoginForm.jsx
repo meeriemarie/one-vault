@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext, useState } from 'react';
-import { loginUser } from './actions';
+import { loginUser } from '../server/actions';
 import { MsgContext } from '../page';
 import { login } from '../services/user-service';
 
