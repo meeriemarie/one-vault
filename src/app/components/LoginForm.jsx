@@ -3,6 +3,7 @@
 import { useContext, useState } from 'react';
 import { loginUser } from './actions';
 import { MsgContext } from '../page';
+import { login } from '../services/user-service';
 
 export default function LoginForm({ onClose, onSignupClick }) {
   const [username, setUsername] = useState('');
@@ -35,7 +36,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
             Welcome Back!
           </h2>
         </div>
-        {msg && (
+        {showSuccess && (
           <div
             role='alert'
             className={
@@ -43,7 +44,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
             }
             data-dismissible='alert'
           >
-            <div className={'mr-12'}>{msg}</div>
+            <div className={'mr-12'}>{successMessage}</div>
             <button
               data-dismissible-target='alert'
               className={
@@ -137,12 +138,17 @@ export default function LoginForm({ onClose, onSignupClick }) {
             ></input>
             <button
               formAction={async () => {
-                const res = await loginUser(username, password);
-                setShowSuccess(true);
-                setSuccessMessage('Login successful');
-                setMsg('Login successful');
-                onClose();
-                console.log(res);
+                const res = await login(username, password);
+                if (res) {
+                  setShowSuccess(true);
+                  setSuccessMessage('Login successful');
+                  setMsg('Login successful');
+                  onClose();
+                } else {
+                  setShowError(true);
+                  setErrorMessage('Login failed');
+                  setMsg('Login failed');
+                }
               }}
               className={
                 'mt-6 flex w-1/2 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
