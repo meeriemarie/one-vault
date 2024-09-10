@@ -3,6 +3,7 @@ import { MsgContext } from '../page';
 
 export default function Alerts() {
   const { msg, setMsg } = useContext(MsgContext);
+  // Simple Alert component to display messages
   return (
     <div>
       {msg && (

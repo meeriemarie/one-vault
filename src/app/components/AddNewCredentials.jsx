@@ -1,6 +1,7 @@
 "use client";
 
 export default function AddNewCredentials({onClose}) {
+    // Simple Modal to add new credentials based on form data
     return (
         <main className={"fixed flex items-center justify-center top-0 left-0 w-full h-full z-50 bg-black/50"}>
             <dialog

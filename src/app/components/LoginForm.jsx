@@ -5,6 +5,8 @@ import { loginUser } from './actions';
 import { MsgContext } from '../page';
 
 export default function LoginForm({ onClose, onSignupClick }) {
+    // Simple Modal to login based on form data
+    // useState to store username and password
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -75,6 +77,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
             </button>
           </div>
         )}
+          {/* Show error message if login fails and close the alert on click */}
         {showError && (
           <div
             role='alert'
@@ -115,6 +118,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
             </button>
           </div>
         )}
+          {/* form with input fields */}
         <div className={'p-4 mt-8 sm:mx-auto sm:w-full sm:max-w-sm'}>
           <form className={'space-y-6'}>
             <input
@@ -135,6 +139,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
                 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
               }
             ></input>
+              {/* Login button with formAction to call loginUser function */}
             <button
               formAction={async () => {
                 const res = await loginUser(username, password);
@@ -154,6 +159,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
         </div>
         <p className={'mt-10 text-center text-sm text-gray-500 m-6'}>
           Don`t have an account?
+            {/* Redirect to signup form */}
           <a
             onClick={onSignupClick}
             className={
