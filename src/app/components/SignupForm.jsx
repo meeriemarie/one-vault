@@ -1,6 +1,6 @@
 'use client';
 import { useContext, useState } from 'react';
-import { signupUser } from './actions';
+import { signupUser } from '../server/actions';
 import { MsgContext } from '../page';
 
 const handleSignup = async (

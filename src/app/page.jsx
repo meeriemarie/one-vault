@@ -8,12 +8,16 @@ export const SuccessContext = createContext([]);
 export const ErrorContext = createContext([]);
 export const MsgContext = createContext({
   msg: '',
-  setMsg: () => {},
+  setMsg: () => {
+    msg = '';
+  },
 });
 
 export default function Home() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [message, setNewMsg] = useState('');
+
   const handleOpenLogin = () => {
     setIsLoginOpen(true);
     setIsSignupOpen(false);
@@ -32,7 +36,9 @@ export default function Home() {
   return (
     <SuccessContext.Provider value={[]}>
       <ErrorContext.Provider value={[]}>
-        <MsgContext.Provider value={{ msg: '', setMsg: () => {} }}>
+        <MsgContext.Provider
+          value={{ msg: message, setMsg: () => setNewMsg() }}
+        >
           <div className={'h-screen lg:p-8 p-2 font-normal bg-indigo-300'}>
             <Alerts />
             <article className={'lg:m-6 m-4'}>
