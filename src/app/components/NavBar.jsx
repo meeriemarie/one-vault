@@ -4,25 +4,20 @@ import { IoMdSettings } from 'react-icons/io';
 import { TbLogin2, TbLogout } from 'react-icons/tb';
 import { PiVaultBold } from 'react-icons/pi';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { logout } from '../services/user-service';
+import { UserContext } from '../components/ClientView';
 
 export default function NavBar() {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      setUser(JSON.parse(user));
-    }
-  }, []);
+  const { user, setUser } = useContext(UserContext);
 
   const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
   };
 
   function logoutUser() {
+    setUser(null);
     logout();
   }
 
@@ -47,14 +42,16 @@ export default function NavBar() {
             Home
           </a>
         </p>
-        {user && (<div>
-          <button
-            onClick={toggleDropdown}
-            className={'pl-2 pr-2 pt-2 pb-2 m-2 rounded-full hover:bg-gray-500'}
-          >
-            <CgProfile size={24} />
-
-          </button>
+        {user && (
+          <div>
+            <button
+              onClick={toggleDropdown}
+              className={
+                'pl-2 pr-2 pt-2 pb-2 m-2 rounded-full hover:bg-gray-500'
+              }
+            >
+              <CgProfile size={24} />
+            </button>
             {isDropdownVisible && (
               <div className={'absolute -ml-20 bg-slate-800'}>
                 <ul className={'table text-left border-collapse'}>
@@ -103,7 +100,7 @@ export default function NavBar() {
                 </li>
               </ul>
             </div>
-            </div>
+          </div>
         )}
       </section>
     </nav>

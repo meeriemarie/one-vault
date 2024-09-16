@@ -1,7 +1,7 @@
 'use client';
 import LoginForm from '@/app/components/LoginForm';
 import SignupForm from '@/app/components/SignupForm';
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useState } from 'react';
 import Alerts from './components/Alerts';
 
 export const SuccessContext = createContext([]);
@@ -32,8 +32,8 @@ export default function Home() {
   };
 
   return (
-      // Simple landing page with two buttons to open login and signup modals
-      // Alert component to display messages
+    // Simple landing page with two buttons to open login and signup modals
+    // Alert component to display messages
     <SuccessContext.Provider value={[]}>
       <ErrorContext.Provider value={[]}>
         <MsgContext.Provider

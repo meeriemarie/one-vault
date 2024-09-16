@@ -1,11 +1,11 @@
 'use client';
 import { useContext, useState } from 'react';
 import { signupUser } from '../server/actions';
-import { MsgContext } from '../page';
+import { MsgContext } from '@/app/page';
 
 const handleSignup = async (
-    // Function to handle signup based on form data
-    // useState to store name, surname, email and password
+  // Function to handle signup based on form data
+  // useState to store name, surname, email and password
   formData,
   setErrorMessage,
   setShowError,
@@ -148,7 +148,7 @@ export default function SignupForm({ onClose, onLoginClick }) {
               }
             ></input>
             <div className={'flex justify-center items-center'}>
-                {/* Signup button with formAction to call handleSignup function */}
+              {/* Signup button with formAction to call handleSignup function */}
               <button
                 formAction={() =>
                   handleSignup(

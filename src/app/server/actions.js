@@ -13,8 +13,6 @@ export async function loginUser(uName, pw) {
     .select('id, password, name')
     .eq('email', uName);
 
-  console.log(data);
-  console.log(error);
   if (error) {
     console.error('Login error:', error);
     redirect('/error');
