@@ -8,9 +8,7 @@ export const SuccessContext = createContext([]);
 export const ErrorContext = createContext([]);
 export const MsgContext = createContext({
   msg: '',
-  setMsg: () => {
-    msg = '';
-  },
+  setMsg: () => {},
 });
 
 export default function Home() {

@@ -50,7 +50,6 @@ export async function loginUser(uName, pw) {
   }
 }
 
-/*
 export async function signupUser(formData) {
   try {
     const pw = await hashPassword(formData.password);
@@ -84,8 +83,8 @@ async function hashPassword(password) {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
 }
- */
 
+/*
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { name, surname, email, password } = req.body;
@@ -124,3 +123,4 @@ export default async function handler(req, res) {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
+ */

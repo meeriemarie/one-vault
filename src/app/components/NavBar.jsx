@@ -47,15 +47,16 @@ export default function NavBar() {
             Home
           </a>
         </p>
-        {user && (
+        {user && (<div>
           <button
             onClick={toggleDropdown}
             className={'pl-2 pr-2 pt-2 pb-2 m-2 rounded-full hover:bg-gray-500'}
           >
             <CgProfile size={24} />
 
+          </button>
             {isDropdownVisible && (
-              <div className={'absolute mt-3 bg-slate-800'}>
+              <div className={'absolute -ml-20 bg-slate-800'}>
                 <ul className={'table text-left border-collapse'}>
                   <li
                     className={
@@ -88,7 +89,7 @@ export default function NavBar() {
                 </ul>
               </div>
             )}
-            <div className={'hidden mt-3 bg-slate-800'}>
+            <div className={'hidden mt-3 -ml-20 bg-slate-800'}>
               <ul className={'table border-collapse'}>
                 <li
                   className={'hover:bg-indigo-300 hover:text-gray-900 p-2 w-32'}
@@ -102,7 +103,7 @@ export default function NavBar() {
                 </li>
               </ul>
             </div>
-          </button>
+            </div>
         )}
       </section>
     </nav>
