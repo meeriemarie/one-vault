@@ -29,3 +29,12 @@ export async function createNewCredentials(formData, user) {
       }
   }
 }
+
+export async function getCredentialsByUserId(user_id) {
+    const superBaseClient = createClient();
+    const {data, error} = await superBaseClient.from('credentials').select('*').eq('user_id', user_id);
+    if (error) {
+        console.error("error fetching data from the database", error);
+    }
+    return data;
+}
