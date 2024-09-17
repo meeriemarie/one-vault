@@ -143,6 +143,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
               }
             ></input>
             {/* Login button with formAction to call loginUser function */}
+            <div className={'flex justify-center items-center'}>
             <button
               formAction={async () => {
                 const res = await login(username, password);
@@ -164,6 +165,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
             >
               Log In
             </button>
+            </div>
           </form>
         </div>
         <p className={'mt-10 text-center text-sm text-gray-500 m-6'}>
