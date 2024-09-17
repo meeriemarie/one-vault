@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import { loginUser } from '../server/actions';
 import { MsgContext } from '@/app/page';
 import { login } from '../services/user-service';
+import {UserContext} from "@/app/components/ClientView";
 
 export default function LoginForm({ onClose, onSignupClick }) {
   // Simple Modal to login based on form data
@@ -12,6 +13,7 @@ export default function LoginForm({ onClose, onSignupClick }) {
   const [password, setPassword] = useState('');
 
   const { msg, setMsg } = useContext(MsgContext);
+  const { user, setUser} = useContext(UserContext);
 
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -144,10 +146,11 @@ export default function LoginForm({ onClose, onSignupClick }) {
             <button
               formAction={async () => {
                 const res = await login(username, password);
-                if (res) {
+                if (res.status) {
                   setShowSuccess(true);
                   setSuccessMessage('Login successful');
                   setMsg('Login successful');
+                  setUser(res.user);
                   onClose();
                 } else {
                   setShowError(true);

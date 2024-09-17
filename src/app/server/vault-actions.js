@@ -62,3 +62,31 @@ export async function deleteCredentialOfUserAction(id) {
     } deleted successfully`,
   };
 }
+
+export async function editCredential(formData, credId) {
+  const superBaseClient = createClient();
+  const { data, error } = await superBaseClient
+    .from('credentials')
+    .update({
+      title: formData.title,
+      password: formData.password, // PW in cleartext, in a real scenario this would be encrypted
+      username: formData.username,
+      site: formData.site,
+    })
+    .eq('id', credId)
+    .select();
+
+  if (error) {
+    console.error('Error updating credentials:', error);
+    return {
+      success: false,
+      msg: 'Error updating credentials',
+    };
+  } else {
+    console.log('Credentials updated');
+    return {
+      success: true,
+      msg: 'Credentials updated successfully',
+    };
+  }
+}

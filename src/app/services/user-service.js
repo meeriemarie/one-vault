@@ -11,7 +11,10 @@ export async function login(username, pw) {
       loggedIn: true,
     };
     localStorage.setItem('user', JSON.stringify(userObject));
-    return true;
+    return {
+      status: true,
+      user: userObject
+    };
   }
   return false;
 }

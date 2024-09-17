@@ -1,6 +1,10 @@
 'use client';
 
 import { deleteCredentialOfUser } from '../services/vault-service';
+import {useState} from "react";
+import AddNewCredentials from "@/app/components/AddNewCredentials";
+import EditCredentials from "@/app/components/EditCredentials";
+import DeleteModal from "@/app/components/DeleteModal";
 
 export default function CredentialBox({ credentials, reloadCrendentials }) {
   const handleDelete = async (id) => {
@@ -11,6 +15,18 @@ export default function CredentialBox({ credentials, reloadCrendentials }) {
     }
     //console.log(res);
   };
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+    const handleDeleteModal = () => {
+        setIsDeleteOpen(!isDeleteOpen);
+    }
+  const handleOpenEdit = () => {
+        setIsEditOpen(true);
+    };
+  const handleCloseEdit = () => {
+        setIsEditOpen(false);
+  }
 
   return (
     <>
@@ -21,15 +37,19 @@ export default function CredentialBox({ credentials, reloadCrendentials }) {
       <td className='px-6 py-4'>{credentials.password}</td>
       <td className='px-6 py-4'>{credentials.site}</td>
       <td>
-        <button className='px-4 py-2 bg-blue-500 text-white rounded-md'>
+        <button
+            onClick={handleOpenEdit}
+            className='m-1 px-4 py-2 bg-blue-500 text-white rounded-md'>
           Edit
         </button>
         <button
-          className='px-4 py-2 bg-red-500 text-white rounded-md'
-          onClick={() => handleDelete(credentials.id)}
+          className='m-1 px-4 py-2 bg-red-500 text-white rounded-md'
+          onClick={() => handleDeleteModal()}
         >
           Delete
         </button>
+          {isEditOpen && <EditCredentials credentials={credentials} onClose={handleCloseEdit} reload={reloadCrendentials}/>}
+          {isDeleteOpen && <DeleteModal credentials={credentials} onClose={handleDeleteModal} confirmAction={() => handleDelete(credentials.id)}/>}
       </td>
     </>
   );

@@ -18,34 +18,25 @@ export async function loginUser(uName, pw) {
     redirect('/error');
   }
   if (data.length > 0) {
-    bcrypt.compare(pw, data[0].password, (err, res) => {
-      if (err) {
-        console.error('Login error:', err);
+    const matchedPW = await bcrypt.compare(pw, data[0].password);
+    if (!matchedPW) {
+      console.error('Login error:', 'Invalid password or username');
         return {
           success: false,
+          msg: 'Invalid password or username'
         };
       }
-      if (res) {
-        console.log('Login successful');
-      } else {
-        console.error('Login error:', 'Invalid password');
-        return {
-          success: false,
-        };
-      }
-    });
+    }
     console.log('logged in User: ', data[0]);
     revalidatePath('/', 'layout');
 
     return {
       username: data[0].name,
+      msg: `Welcome ${data[0].name}!`,
       userId: data[0].id,
       success: true,
     };
     // onLoginClick();
-  } else {
-    // Credentials have not been found
-  }
 }
 
 export async function signupUser(formData) {
